@@ -132,11 +132,11 @@ namespace Remover
             if (Fougerite.Server.GetServer().HasRustPP)
             {
                 RustPPSupport = true;
-                Logger.Log("Plugin " + Name + " " + Version.ToString() + " Ba Rust++ OKaye!!");
+                Logger.Log("Plugin " + Name + " " + Version.ToString() + " Works fine With Rust++!!");
             }
             else
             {
-                Logger.LogError("WARNING ,Plugin " + Name + " " + Version.ToString() + " DISABLED, Rust++ Peyda Nashod!Ye Jaye Kar Ride Dadach!");
+                Logger.LogError("WARNING ,Plugin " + Name + " " + Version.ToString() + " DISABLED, Rust++ not Found!");
                 RustPPSupport = false;
             }
             Logger.Log("");
@@ -201,16 +201,16 @@ namespace Remover
                 if (DataStore.GetInstance().ContainsKey("RemoveTool", player.SteamID))
                 {
                     player.MessageFrom(Name, "---[color #42f5b3]RemoveTool[color white]---");
-                    player.MessageFrom(Name, "[color #42f5b3]Shoma Az RemoveTool Kharej Shodid!");
+                    player.MessageFrom(Name, "[color #42f5b3]RemoveTool Disabled!");
                     DataStore.GetInstance().Remove("RemoveTool", player.SteamID);
                 }
                 else
                 {
                     DataStore.GetInstance().Add("RemoveTool", player.SteamID, 0);
                     player.MessageFrom(Name, "---[color #42f5b3]RemoveTool[color white]---");
-                    player.MessageFrom(Name, "[color #f5e042]Shoma Aknun Dar RemoveTool Hastid!");
-                    player.MessageFrom(Name, "[color #f5e042]Har Moghe Karetun Tamum Shod Hatman Ba / Az OwnerMode Kharej Shid!");
-                    player.MessageFrom(Name, "[color #f5e042]Estefade Az Shotgun Baraye Remove Mojaz Nist!");
+                    player.MessageFrom(Name, "[color #f5e042]RemoveTool Activated!");
+                    player.MessageFrom(Name, "[color #f5e042]You have 30 Seconds to Remove your Objects!");
+                    player.MessageFrom(Name, "[color #f5e042]You Can't use Shotgun in RemoveTool!");
                     Dictionary<string, object> Data = new Dictionary<string, object>();
                     Data["Player"] = player;
                     CreateParallelTimer(30000, Data).Start();
@@ -221,7 +221,7 @@ namespace Remover
                 System.Collections.ArrayList list = (System.Collections.ArrayList)Fougerite.Server.GetServer().GetRustPPAPI().GetShareCommand.GetSharedDoors()[player.UID];
                 if (list == null)
                 {
-                    player.MessageFrom("ShareList", "Shoma Kesi Ro Share [color #fc0313]Nakardid!");
+                    player.MessageFrom("ShareList", "You did not Share [color #fc0313]anyone!");
                     return;
                 }
                 else

@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Fougerite;
 using UnityEngine;
-using DiscordWebHooks;
 
 namespace Raids
 {
@@ -13,7 +12,7 @@ namespace Raids
     {
         public override string Name { get { return "RaidSystem"; } }
         public override string Author { get { return "TheMajical"; } }
-        public override string Description { get { return "Raid Discord Broadcaster"; } }
+        public override string Description { get { return "Raid Broadcaster"; } }
         public override Version Version { get { return new Version("1.0"); } }
 
         public readonly Dictionary<string, Vector2> MapLocations = new Dictionary<string, Vector2>()
@@ -116,18 +115,7 @@ namespace Raids
                 Fougerite.Player Raider = (Fougerite.Player)de.Attacker;
                 Vector3 v = Raider.Location;
                 string pos = CalcPosition(v);
-                string dtext = " `" + Raider.Name + "` ➤ " + de.Entity.Name + " of `" + de.Entity.OwnerName + "` Area: `" + pos + "`";
-                if (de.WeaponName == "Explosive Charge")
-                {
-                    Server.GetServer().BroadcastFrom("Raid NEWS", "[color red]" + Raider.Name + "[color white] Is Raiding [color green]" + de.Entity.OwnerName + "[color white] House with [color orange]C4[color white]!Area: [color #00ff7b]" + pos);
-                    DiscordWebHooks.API.Send(false, dtext, "C4", "https://discordapp.com/api/webhooks/610919471401533473/KyaTcqn6QbKai-wsT6RcwMrYU3aJRYmlqLFfDSUlIjg_QUFSp8blhl4Z3nNeu79pWNXU");
-                    return;
-                }
-                if (de.WeaponName == "F1 Grenade")
-                {
-                    Server.GetServer().BroadcastFrom("Raid NEWS", "[color red]" + Raider.Name + "[color white] Is Raiding [color green]" + de.Entity.OwnerName + "[color white] House with [color orange]F1 Grenade[color white]!Area: [color #00ff7b]" + pos);
-                    DiscordWebHooks.API.Send(false, dtext, "Grenade", "https://discordapp.com/api/webhooks/611241709745078291/x8aCZgbXr0oRspmrsV5vihBZyaTcwLlXpsMRzIqfkhN5bIfSzA4LAUujs5xV9z3buSuf");
-                }
+                Server.GetServer().BroadcastFrom("Raid NEWS", "[color red]" + Raider.Name + "[color white] Is Raiding [color green]" + de.Entity.OwnerName + "[color white] House with [color orange]" + de.WeaponName + "[color white]!Area: [color #00ff7b]" + pos);
             }
         }
     }

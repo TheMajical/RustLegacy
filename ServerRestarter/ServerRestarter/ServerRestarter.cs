@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using Fougerite;
-using DiscordWebHooks;
 using UnityEngine;
 
 namespace ServerRestarter
@@ -72,7 +71,7 @@ namespace ServerRestarter
 
         public void Log(string pname)
         {
-            string line = DateTime.Now + " " + pname + " Server ro Restart Kard!";
+            string line = DateTime.Now + " " + pname + " Restarted Server!";
 
             file = new System.IO.StreamWriter(Path.Combine(ModuleFolder, "Restarts.log"), true);
             file.WriteLine(line);
@@ -91,15 +90,14 @@ namespace ServerRestarter
         {
             AlertTimer.Dispose();
             Server.GetServer().BroadcastNotice("Server Restarting in 2 Minute!!!");
-            Server.GetServer().Broadcast("Server [color #82009c]2 Daghighe [color white]Digar Be Surate Automatic Restart Mishavad!");
+            Server.GetServer().Broadcast("Server will Restart Automaticly in [color #82009c]2 Minutes!");
         }
 
         private void KickCall(object sender, ElapsedEventArgs e)
         {
             KickTimer.Dispose();
             Server.GetServer().BroadcastNotice("Server Restarting NOW!!!");
-            Server.GetServer().Broadcast("Server Aknun [color #82009c]Restart [color white]Mishavad!");
-            DiscordWebHooks.API.Send(false, "Server Restarted Automatically!Next AutoRestart in 2 Hours!", "Ray", "https://discordapp.com/api/webhooks/556172192417841154/RqWVzLlSh5tF4WHYtQ_zIpesc9Jwlm2wNphSueZq-bS-f9nGkDOOGO-gFLnJqf8MMxtQ");
+            Server.GetServer().Broadcast("Server will [color #82009c]Restart [color white]NOW!");
             foreach (var play in Server.GetServer().Players)
             {
                 play.Disconnect();
@@ -109,7 +107,7 @@ namespace ServerRestarter
         private void KDTimerCall(object sender, ElapsedEventArgs e)
         {
             Server.GetServer().BroadcastNotice("Server Restarting NOW!!!");
-            Server.GetServer().Broadcast("Server Aknun [color #82009c]Restart [color white]Mishavad!");
+            Server.GetServer().Broadcast("Server will [color #82009c]Restart [color white]NOW!");
             foreach (var play in Server.GetServer().Players)
             {
                 play.Disconnect();
@@ -123,20 +121,18 @@ namespace ServerRestarter
             {
                 if (player.Admin || (player.Moderator))
                 {
-                    DiscordWebHooks.API.Send(false, "Admin " + player.Name + " Restarted Server!Next AutoRestart in 2 Hours!", "Ray", "https://discordapp.com/api/webhooks/556172192417841154/RqWVzLlSh5tF4WHYtQ_zIpesc9Jwlm2wNphSueZq-bS-f9nGkDOOGO-gFLnJqf8MMxtQ");
-                    RestartTimer.Dispose();
                     AlertTimer.Dispose();
                     KickTimer.Dispose();
                     KDTimer.Start();
                     Server.GetServer().BroadcastNotice("Server Restarting in 60 Seconds!!!");
-                    Server.GetServer().Broadcast("Server [color #82009c]60 Sanie [color white]Digar Be Daste Admin [color #82009c]" + player.Name + " [color white]Restart Mishavad!");
-                    Logger.LogError("[AutoRestart] " + player.Name + " Server Ra Restart Kard!");
+                    Server.GetServer().Broadcast("Server will Restart in [color #82009c]60 Seconds [color white]By Admin [color #82009c]" + player.Name ");
+                    Logger.LogError("[AutoRestart] " + player.Name + " Restarted Server!");
                     string pname = player.Name;
                     Log(pname);
                 }
                 else
                 {
-                    player.Message("[color red]Faghat Adminha Mitavanand Server Ra Restart Konanad!");
+                    player.Message("[color red]Only Admins have Access to this Command!");
                 }
                 
             }

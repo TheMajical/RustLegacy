@@ -61,7 +61,6 @@ namespace Payday
 
         private void PaydayCall(object sender, ElapsedEventArgs e)
         {
-            Logger.LogError("Timer Fucked Up!");
             int random = Randomizer.Next(1, 21);
             foreach (var play in Server.GetServer().Players)
             {

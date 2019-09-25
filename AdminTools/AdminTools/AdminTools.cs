@@ -99,7 +99,7 @@ namespace AdminTools
                 {
                     if (he.WeaponName == "Shotgun")
                     {
-                        attacker.MessageFrom(Name, "Estefade Az Shotgun Mojaz Nist!");
+                        attacker.MessageFrom(Name, "You Can't use Shotgun in this mode!");
                         return;
                     }
                     attacker.Notice("Entity Loc + Owner Saved!");
@@ -111,7 +111,7 @@ namespace AdminTools
                 {
                     if (he.WeaponName == "Shotgun")
                     {
-                        attacker.MessageFrom(Name, "Estefade Az Shotgun Dar OwnerMode Mojaz Nist!");
+                        attacker.MessageFrom(Name, "You Can't use Shotgun in this mode!");
                         return;
                     }
                     attacker.Notice(he.Entity.Name + "Is Owned by " + he.Entity.OwnerName);
@@ -130,21 +130,21 @@ namespace AdminTools
                     if (DataStore.GetInstance().ContainsKey("OwnerMode", player.SteamID))
                     {
                         player.MessageFrom(Name, "---[color #42f5b3]OwnerMode[color white]---");
-                        player.MessageFrom(Name, "[color #42f5b3]Shoma Az OwnerMode Kharej Shodid!");
+                        player.MessageFrom(Name, "[color #42f5b3]You are no longer in OwnerMode!");
                         DataStore.GetInstance().Remove("OwnerMode", player.SteamID);
                     }
                     else
                     {
                         DataStore.GetInstance().Add("OwnerMode", player.SteamID, 0);
                         player.MessageFrom(Name, "---[color #42f5b3]OwnerMode[color white]---");
-                        player.MessageFrom(Name, "[color #f5e042]Shoma Aknun Dar OwnerMode Hastid!");
-                        player.MessageFrom(Name, "[color #f5e042]Har Moghe Karetun Tamum Shod Hatman Ba /owner Az OwnerMode Kharej Shid!");
-                        player.MessageFrom(Name, "[color #f5e042]Estefade Az Shotgun Dar OwnerMode Mojaz Nist!");
+                        player.MessageFrom(Name, "[color #f5e042]OwnerMode Activated!");
+                        player.MessageFrom(Name, "[color #f5e042]Make sure to use /owner again when you finished your job!");
+                        player.MessageFrom(Name, "[color #f5e042]You Can't use Shotgun in this mode!");
                     }
                 }
                 else
                 {
-                    player.MessageFrom(Name, "Shoma Admin Nistid!");
+                    player.MessageFrom(Name, "You are not an Admin!");
                 }
             }
             if (cmd == "osave")
@@ -154,16 +154,16 @@ namespace AdminTools
                     if (DataStore.GetInstance().ContainsKey("OwnerSave", player.SteamID))
                     {
                         player.MessageFrom(Name, "---[color #42f5b3]OwnerSave[color white]---");
-                        player.MessageFrom(Name, "[color #42f5b3]Shoma Az OwnerSave Mode Kharej Shodid!");
+                        player.MessageFrom(Name, "[color #42f5b3]You are no longer in OwnerSave!");
                         DataStore.GetInstance().Remove("OwnerSave", player.SteamID);
                     }
                     else
                     {
                         DataStore.GetInstance().Add("OwnerSave", player.SteamID, 0);
                         player.MessageFrom(Name, "---[color #42f5b3]OwnerSave[color white]---");
-                        player.MessageFrom(Name, "[color #f5e042]Shoma Aknun Dar OwnerSaveMode Hastid!");
-                        player.MessageFrom(Name, "[color #f5e042]Har Moghe Karetun Tamum Shod Hatman Ba /osave Az OwnerSaveMode Kharej Shid!");
-                        player.MessageFrom(Name, "[color #f5e042]Estefade Az Shotgun Mojaz Nist!");
+                        player.MessageFrom(Name, "[color #f5e042]OwnerSaveMode Activated!");
+                        player.MessageFrom(Name, "[color #f5e042]Make sure to use /osave again when you finished your job!");
+                        player.MessageFrom(Name, "[color #f5e042]You Can't use Shotgun in this mode!");
                     }
                 }
             }

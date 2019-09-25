@@ -28,7 +28,7 @@ namespace FPS
 
         public void OnPlayerConnected(Fougerite.Player pl)
         {
-            pl.MessageFrom(Name, "Ba [color #e0b0b0]/fps[color white] FPS Khod Ra Afzayesh Dahid!");
+            pl.MessageFrom(Name, "Use [color #e0b0b0]/fps[color white] to increase your FPS!");
         }
 
         public void OnCommand(Fougerite.Player player, string cmd, string[] args)

@@ -14,7 +14,7 @@ namespace AdminSys
         public override string Name { get { return "AdminSys"; } }
         public override string Author { get { return "TheMajical"; } }
         public override string Description { get { return "Admin System "; } }
-        public override Version Version { get { return new Version("1.1"); } }
+        public override Version Version { get { return new Version("1.2"); } }
 
         public System.IO.StreamWriter file;
         public bool ClansSupport = false;
@@ -139,7 +139,7 @@ namespace AdminSys
             file.WriteLine(line);
             file.Close();
         }
-
+        //this function is from Salva "AntiBugOnSpawn"
         public string GetClanName(string TargetID)
         {
             string clanname = "XXXXXXXXXXXXX";
@@ -157,6 +157,7 @@ namespace AdminSys
             return clanname;
         }
 
+        //this function is from Salva "AntiBugOnSpawn"
         public void RecuperaListaDeClanes()
         {
             ClansIni = new IniParser(Directory.GetCurrentDirectory() + "\\save\\PyPlugins\\Clans\\Clans.ini");
@@ -184,7 +185,7 @@ namespace AdminSys
             }
             else
             {
-                ConsoleSystem.PrintError("Plugin " + Name + " " + Version.ToString() + " Integration with Clans has Failed!! (OPTIONAL)");
+                ConsoleSystem.PrintError("Plugin " + Name + " " + Version.ToString() + " Integration with Clans has Failed!!");
                 ClansSupport = false;
             }
         }
@@ -217,9 +218,9 @@ namespace AdminSys
                 string toolname = player.Inventory.InternalInventory._activeItem.datablock.name;
                 if (toolname == "Uber Hatchet")
                 {
-                    Server.GetServer().Broadcast("[color #42b3f5]Admin/Mod [color #f5e042]" + player.Name + " [color #42b3f5]Be Dalile Farm Ba UberHatchet [color #45f542]Kick [color #42b3f5]Shod!");
+                    Server.GetServer().Broadcast("[color #42b3f5]Admin/Mod [color #f5e042]" + player.Name + " [color #45f542]Get Kicked [color #42b3f5]cause of Farming with a UberHatchet!");
                     player.Disconnect();
-                    string logtext = player.Name + " Ba UberHatcher Farm Kard Va Cik Bebakhshid Kick Shod!";
+                    string logtext = player.Name + " Kicked cause of Farming with a UberHatchet!";
                     Log(logtext, "UberFarm");
                 }
             }
@@ -234,7 +235,7 @@ namespace AdminSys
                     e.Destroy();
                     player.Inventory.AddItem(e.Name);
                     player.InventoryNotice("1 x " + e.Name + "");
-                    player.MessageFrom("AntiAbuse", "[color #42b3f5]Shoma Dar Halate On Duty Mojaz Be Build [color #45f542]Nistid!");
+                    player.MessageFrom("AntiAbuse", "[color #42b3f5]You [color #45f542]Can't [color #42b3f5]Build while you are in Admin-Duty!");
                 }
             }     
         }
@@ -250,9 +251,9 @@ namespace AdminSys
                     if (DataStore.GetInstance().ContainsKey("AdminDuty", attacker.SteamID) && attacker != victim)
                     {
                         he.DamageAmount = 0f;
-                        attacker.MessageFrom(Name, "[color #42b3f5]Dar Halate On Duty Haghe Damage Dadan [color #45f542]Nadari!");
-                        attacker.Notice("Dar Halate On Duty Haghe Damage Dadan Nadari!");
-                        victim.MessageFrom("AntiAbuse", "[color #42b3f5]Admin [color #45f542]" + attacker.Name + " [color #42b3f5]Dar Halate OnDuty Talash Kard Be Shoma [color #45f542]Damage [color #42b3f5]Bede!");
+                        attacker.MessageFrom(Name, "[color #42b3f5]You [color #45f542]Can't [color #42b3f5]Damage anyone while you are in Admin-Duty!");
+                        attacker.Notice("You Can't Damage anyone in Admin-Duty!");
+                        victim.MessageFrom("AntiAbuse", "[color #42b3f5]Admin [color #45f542]" + attacker.Name + " [color #42b3f5]tried to [color #45f542]Damage [color #42b3f5]You in Admin-Duty!");
                     }
                 }   
             }
@@ -285,7 +286,7 @@ namespace AdminSys
                     }
                     else
                     {
-                        player.MessageFrom(Name, "[color #42b3f5]Shoma On Duty Hastid!!!");
+                        player.MessageFrom(Name, "[color #42b3f5]You are already OnDuty!!!");
                     }
                 }
                 if (cmd == "unduty")
@@ -303,7 +304,7 @@ namespace AdminSys
                     }
                     else
                     {
-                        player.MessageFrom(Name, "[color #42b3f5]Shoma On Duty [color #f55142]Nistid!!!");
+                        player.MessageFrom(Name, "[color #42b3f5]You are [color #f55142]not [color #42b3f5]On Duty!!!");
                     }
                 }
                 if (cmd == "warn")
@@ -324,16 +325,16 @@ namespace AdminSys
                         if (!DataStore.GetInstance().ContainsKey("warn", playertor.SteamID))
                         {
                             DataStore.GetInstance().Add("warn", playertor.SteamID, 0);
-                            Server.GetServer().Broadcast("[color #42b3f5]Admin/Mod [color #f5e042]" + player.Name + "[color #42b3f5] Be[color #f5e042] " + playertor.Name + " [color #42b3f5]Yek Ekhtar Dad![color #f5e042](1/2)");
-                            string logtext = player.Name + " Be " + playertor.Name + " Ekhtar Dad!(1/2)";
+                            Server.GetServer().Broadcast("[color #42b3f5]Admin/Mod [color #f5e042]" + player.Name + "[color #42b3f5] Warned [color #f5e042] " + playertor.Name + "![color #f5e042](1/2)");
+                            string logtext = player.Name + " Warned " + playertor.Name + "!(1/2)";
                             Log(logtext, "Warn");
                             return;
                         }
                         else
                         {
                             DataStore.GetInstance().Remove("warn", playertor.SteamID);
-                            Server.GetServer().Broadcast("[color #42b3f5]Admin/Mod [color #f5e042]" + player.Name + "[color #42b3f5] Be[color #f5e042] " + playertor.Name + " [color #42b3f5]Yek Ekhtar Dad![color red]Kicked (2/2)");
-                            string logtext = player.Name + " Be " + playertor.Name + " Ekhtar Dad!Kicked (2/2)";
+                            Server.GetServer().Broadcast("[color #42b3f5]Admin/Mod [color #f5e042]" + player.Name + "[color #42b3f5] Warned[color #f5e042] " + playertor.Name + "![color red]Kicked (2/2)");
+                            string logtext = player.Name + " Warned " + playertor.Name + "!Kicked (2/2)";
                             Log(logtext, "Warn");
                             playertor.Disconnect();
                         }
@@ -356,14 +357,14 @@ namespace AdminSys
                         if (DataStore.GetInstance().ContainsKey("warn", playertor.SteamID))
                         {
                             DataStore.GetInstance().Remove("warn", playertor.SteamID);
-                            Server.GetServer().Broadcast("[color #42b3f5]Admin/Mod [color #f5e042]" + player.Name + " [color #42b3f5]1 Warn Az[color #f5e042] " + playertor.Name + " [color #f55142]Delete [color #42b3f5]Kard![color #f5e042](0/2)");
+                            Server.GetServer().Broadcast("[color #42b3f5]Admin/Mod [color #f5e042]" + player.Name + " [color #42b3f5]Deleted [color #f5e042] " + playertor.Name + " [color #42b3f5]Warns![color #f5e042](0/2)");
                             string logtext = player.Name + " Deleted " + playertor.Name + " Warns!";
                             Log(logtext, "DeleteWarn");
                             return;
                         }
                         else
                         {
-                            player.MessageFrom(Name, "[color #42b3f5]In Player Warni [color #f55142]Nadare [color #42b3f5]Ke Pak Koni!");
+                            player.MessageFrom(Name, "[color #42b3f5]This Player [color #f55142]Doesn't [color #42b3f5]have any Warn!");
                             return;
                         }
                     }
@@ -383,7 +384,7 @@ namespace AdminSys
                             return;
                         }
                         player.MessageFrom(Name, playertor.Name + " HP : " + playertor.Health);
-                        string logtext = player.Name + " Ruye " + playertor.Name + " /HP Zad";
+                        string logtext = player.Name + " Used /HP On " + playertor.Name + "";
                         Log(logtext, "HP");
                     }
                 }
@@ -405,13 +406,13 @@ namespace AdminSys
                             }
                             if (playertor.Moderator)
                             {
-                                player.MessageFrom("AntiAbuse", "[color #42b3f5]Nemituni Be Moderator Haye Dige Teleport [color #f55142]Koni!");
+                                player.MessageFrom("AntiAbuse", "[color #42b3f5]You [color #f55142]Can't [color #42b3f5]Teleport to another Mods!");
                                 return;
                             }
                             RecuperaListaDeClanes();
                             if (SonDeElMismoClan(player.SteamID, GetClanName(playertor.SteamID)))
                             {
-                                player.MessageFrom("AntiAbuse", "[color #42b3f5]Nemituni Be HamClani Hat Teleport Shi :)");
+                                player.MessageFrom("AntiAbuse", "[color #42b3f5]You [color #f55142]Can't [color #42b3f5]Teleport to your Clanmates!");
                                 return;
                             }
                             if (!DataStore.GetInstance().ContainsKey("ModeratorLastLoc", player.UID))
@@ -419,33 +420,33 @@ namespace AdminSys
                                 DataStore.GetInstance().Add("ModeratorLastLoc", player.UID, player.Location.ToString());
                             }
                             player.TeleportTo(playertor, 1.5f, false);
-                            player.Notice("Shoma Be Player " + playertor.Name + " Teleport Shodid!");
+                            player.Notice("You have Teleported to " + playertor.Name + "");
                             player.InventoryNotice("Checkpoint Saved!");
-                            playertor.Notice("Admin " + player.Name + " Be Shoma Teleport Shod!");
-                            string logtext = player.Name + " Be " + playertor.Name + " Teleport Kard!LOC: X: " + playertor.X + " Y: " + playertor.Y + " Z: " + playertor.Z + " ";
+                            playertor.Notice("Admin " + player.Name + " Teleported to You!");
+                            string logtext = player.Name + " Teleported To " + playertor.Name + " !LOC: " + playertor.X + " " + playertor.Y + " " + playertor.Z + " ";
                             Log(logtext, "Teleports");
                         }
                         else
                         {
-                            player.MessageFrom(Name, "[color #42b3f5]Shoma On Duty [color #f55142]Nistid!!!");
+                            player.MessageFrom(Name, "[color #42b3f5]You are [color #f55142]not [color #42b3f5]OnDuty!!!");
                         }
                         
                     }
                 }
                 if (cmd == "mtpback")
                 {
-                    if (DataStore.GetInstance().ContainsKey("ModeratorLastLoc", player.UID) && !DataStore.GetInstance().ContainsKey("HGIG", player.UID) && !DataStore.GetInstance().ContainsKey("PGIG", player.UID))
+                    if (DataStore.GetInstance().ContainsKey("ModeratorLastLoc", player.UID) && !DataStore.GetInstance().ContainsKey("HGIG", player.UID))
                     {
                         var location = StringToVector3(DataStore.GetInstance().Get("ModeratorLastLoc", player.UID).ToString());
                         player.SafeTeleportTo(location, false);
                         DataStore.GetInstance().Remove("ModeratorLastLoc", player.UID);
-                        player.Notice("Shoma Be Checkpointe Save Shode TP Back Shodid!");
-                        string logtext = "Admin " + player.Name + " Be Checkpointe Save Shode TP Back Dad!";
+                        player.Notice("You Teleported Back to your Checkpoint!");
+                        string logtext = "Admin " + player.Name + " Teleported to his Checkpoint!";
                         Log(logtext, "Teleports");
                     }
                     else
                     {
-                        player.Notice("Shoma Checkpoint Nadarid Ya Ke Dar HG/PG Hastid!");
+                        player.Notice("You Don't have any save Checkpoint or You Are in HungerGame!");
                     }
                 }
                 if (cmd == "ann")
@@ -457,7 +458,7 @@ namespace AdminSys
                     else
                     {
                         Server.GetServer().BroadcastNotice(string.Join(" ", args));
-                        string logtext = player.Name + " /ann Dad: "  + string.Join(" ", args);
+                        string logtext = player.Name + " /ann ==> : "  + string.Join(" ", args);
                         Log(logtext, "Announce");
                     }
                 }
@@ -472,8 +473,8 @@ namespace AdminSys
                             c++;
                         }
                     }
-                    Server.GetServer().BroadcastFrom("AntiLag", "[color #42b3f5]Admin/Mod [color #f5e042]" + player.Name + "[color red] " + c + " [color #42b3f5]Shelter Delete Kard");
-                    string logtext = player.Name + " " + c + " Shelter Ra Delete Kard!";
+                    Server.GetServer().BroadcastFrom("AntiLag", "[color #42b3f5]Admin/Mod [color #f5e042]" + player.Name + " [color #42b3f5]Deleted [color red] " + c + " [color #42b3f5]Shelters");
+                    string logtext = player.Name + " Deleted " + c + " Shelters";
                     Log(logtext, "Shelter");
                 }
                 if (cmd == "wipebar")
@@ -487,8 +488,8 @@ namespace AdminSys
                             c++;
                         }
                     }
-                    Server.GetServer().BroadcastFrom("AntiLag", "[color #42b3f5]Admin/Mod [color #f5e042]" + player.Name + "[color red] " + c + " [color #42b3f5]Barricade Delete Kard");
-                    string logtext = player.Name + " " + c + " Barricade Ra Delete Kard!";
+                    Server.GetServer().BroadcastFrom("AntiLag", "[color #42b3f5]Admin/Mod [color #f5e042]" + player.Name + " [color #42b3f5]Deleted [color red] " + c + " [color #42b3f5]Barricades");
+                    string logtext = player.Name + " Deleted " + c + " Barricades";
                     Log(logtext, "Barricade");
                 }
             } 
@@ -499,9 +500,6 @@ namespace AdminSys
             if (DataStore.GetInstance().ContainsKey("AdminDuty", player.SteamID))
             {
                 DataStore.GetInstance().Remove("AdminDuty", player.SteamID);
-                player.MessageFrom(Name, "[color #42b3f5]Shoma Az Halate On Duty [color #f542a4]Kharej[color #42b3f5] Shodid!");
-                string logtext = player.Name + " Server Ra Dar Halate AdminDuty Tark Kard!";
-                Log(logtext, "Duty");
             }
         }
     }
